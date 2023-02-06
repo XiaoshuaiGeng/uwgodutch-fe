@@ -15,7 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
-
+import md5 from 'js-md5'
 import {blue} from "@mui/material/colors";
 
 
@@ -58,9 +58,10 @@ export default function LoginLayout() {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        const user={email,password}
+        const encrypted_password = md5(password);
+        const user={email,encrypted_password}
 
-        fetch("/login",{
+        fetch("http://72.140.181.114:4000/login",{
             method:"POST",
             headers:{"Content-Type":"application/json"},
             body:JSON.stringify(user)
@@ -69,7 +70,11 @@ export default function LoginLayout() {
             .then((res)=>{
                 if (res.code===1) {
                     alert("login successfully")
-                    console.log(res.data.name)
+                    let arr = []
+                    arr.push(result.data)
+                    let result = res;
+                    console.log(result)
+                    console.log(result.data.name)
                 }
                     // navto(res.data,res.accessToken)}
                 // else if(res.code===0){

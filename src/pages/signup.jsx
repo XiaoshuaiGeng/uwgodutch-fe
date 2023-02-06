@@ -72,6 +72,27 @@ export default function SignupLayout() {
 
 
 
+    const checkEmail = (e) => {
+
+        fetch("http://72.140.181.114:4000/checkmail",{
+
+            method:"POST",
+            mode: 'cors',
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify({email})
+
+        }).then(res=>res.json())
+            .then((res)=>{
+                if(res.code===0){
+                    setmailError("Email not Avaliable");
+
+                }
+                else{
+                    setmailError("");
+                }
+            })
+
+    }
     const checkPasswords = (event) => {
         if (password !== confirmPassword) {
 
@@ -99,9 +120,9 @@ export default function SignupLayout() {
     //         }
     //     })
     // }
-    const checkUsername = (event) => {
-        setnameCheckError("not avaliable")
-    }
+    // const checkUsername = (event) => {
+    //     setnameCheckError("not avaliable")
+    // }
 
     const handleSubmit = (e) => {
         checkPasswords(e)
@@ -141,7 +162,7 @@ export default function SignupLayout() {
             }).then(res=>res.json())
                 .then((res)=>{
                     if (res.code===1){alert("register successfully");
-                        alert("signup successfully, now redirect to home page")
+
                         nav('/')}
                     else {
                         alert("email exists")
@@ -204,14 +225,14 @@ export default function SignupLayout() {
                                 error={nameerror}
                                 helperText={nameerror}
                             />
-                            <div style={{ color: "red" }}> <Button
-                                halfWidth
-                                variant="contained"
-                                sx={{ mt: 1, mb: 0 }}
-                                onClick={(e)=>checkUsername(e)}
-                            >
-                                Check name availability:  {nameCheckError}
-                            </Button></div>
+                            {/*<div style={{ color: "red" }}> <Button*/}
+                            {/*    halfWidth*/}
+                            {/*    variant="contained"*/}
+                            {/*    sx={{ mt: 1, mb: 0 }}*/}
+                            {/*    onClick={(e)=>checkUsername(e)}*/}
+                            {/*>*/}
+                            {/*    Check name availability:  {nameCheckError}*/}
+                            {/*</Button></div>*/}
                             <TextField
                                 margin="normal"
                                 required
@@ -253,6 +274,7 @@ export default function SignupLayout() {
                                 onChange={(e)=>setEmail(e.target.value)}
                                 error={mailerror}
                                 helperText={mailerror}
+                                onBlur={(e)=>checkEmail(e)}
 
                             />
                             <TextField
