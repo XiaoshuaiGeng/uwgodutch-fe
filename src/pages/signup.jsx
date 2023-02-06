@@ -16,6 +16,7 @@ import md5 from 'js-md5'
 
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {useCallback,useMemo} from 'react'
 
 function Copyright(props) {
     return (
@@ -46,6 +47,31 @@ export default function SignupLayout() {
     const [cellerror, setcellError] = useState("");
     const[user, setUser]=useState('')
     const nav = useNavigate();
+    const autocheckPasswords = () => {
+        if (password !== confirmPassword) {
+
+            setPasswordErrorText("Passwords do not match");
+
+        } else {
+            setPasswordErrorText("");
+        }
+    }
+
+    const passerror1 = useMemo(() => {
+
+        if (password) {
+            
+            setpassError("")
+        };
+    }, [password]);
+    const automatch= useMemo(() => {
+
+        autocheckPasswords()
+
+    }, [confirmPassword]);
+
+
+
     const checkPasswords = (event) => {
         if (password !== confirmPassword) {
 
@@ -82,12 +108,12 @@ export default function SignupLayout() {
         e.preventDefault();
         if (!email) {
             setmailError("Please enter email");
-            e.preventDefault();
+
         } else {
             setmailError("");
         }
         if (!password) {
-            setpassError("Please enter password");
+            setpassError("Please enter password")
         } else {
             setpassError("");
         }
