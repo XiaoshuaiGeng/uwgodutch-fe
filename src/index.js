@@ -1,8 +1,27 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+
 import reportWebVitals from './reportWebVitals';
+import SignupLayout from "./pages/signup";
+import LoginLayout from "./pages/login";
+import Header from "./pages/Header";
+
+
+export default function App() {
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Header/>}/>
+                <Route path="signup" element={<SignupLayout/>}/>
+                <Route path="login" element={<LoginLayout/>}/>
+
+            </Routes>
+        </BrowserRouter>
+    );
+}
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
