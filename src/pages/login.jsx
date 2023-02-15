@@ -70,7 +70,7 @@ export default function LoginLayout() {
         const encrypted_password = md5(password);
         const user={email,encrypted_password}
 
-        fetch("http://72.140.181.114:4000/login",{
+        fetch("/login",{
             method:"POST",
             headers:{"Content-Type":"application/json"},
             mode: 'cors',
@@ -111,7 +111,7 @@ export default function LoginLayout() {
                     sm={4}
                     md={7}
                     sx={{
-                        backgroundImage: 'url(/sunsetBackground.jpg)',
+                        backgroundImage: 'url(/uwcampus.jpg)',
                         backgroundRepeat: 'no-repeat',
                         backgroundColor: (t) =>
                             t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],

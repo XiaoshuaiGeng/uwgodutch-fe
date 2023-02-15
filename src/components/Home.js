@@ -13,6 +13,7 @@ function Home() {
           className="App-link"
           href="https://reactjs.org"
           target="_blank"
+          id = "link"
           rel="noopener noreferrer"
         >
           UWGoDutch
