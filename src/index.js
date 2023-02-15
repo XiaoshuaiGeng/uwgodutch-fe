@@ -6,16 +6,17 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import SignupLayout from "./pages/signup";
 import LoginLayout from "./pages/login";
-import Header from "./pages/Header";
 
+import MainLayer from "./pages/Mainlayer"
 
 export default function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Header/>}/>
+
+                <Route path="/" element={<LoginLayout/>}/>
                 <Route path="signup" element={<SignupLayout/>}/>
-                <Route path="login" element={<LoginLayout/>}/>
+                <Route path="userLayout" element={<MainLayer/>}/>
 
             </Routes>
         </BrowserRouter>

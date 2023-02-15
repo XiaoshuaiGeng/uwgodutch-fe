@@ -20,13 +20,19 @@ import {blue} from "@mui/material/colors";
 
 
 function Copyright(props) {
+    let newDate = new Date()
+    let date = newDate.getDate();
+    let month = newDate.getMonth() + 1;
+    let year = newDate.getFullYear();
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
             {'Copyright © '}
-            <Link color="inherit" href="https://afterglow.com/">
+            <Link color="inherit" href="/">
                 UWGoduth.com
             </Link>{' '}
-            {new Date().getFullYear()}
+            {/*{new Date().getFullYear()}*/}
+            {year}-{month<10?`0${month}`:`${month}`}-{date}
+            {/*{new Date().getDate()}*/}
             {'.'}
         </Typography>
     );
@@ -64,17 +70,20 @@ export default function LoginLayout() {
         fetch("http://72.140.181.114:4000/login",{
             method:"POST",
             headers:{"Content-Type":"application/json"},
+            mode: 'cors',
             body:JSON.stringify(user)
 
         }).then(res=>res.json())
             .then((res)=>{
                 if (res.code===1) {
                     alert("login successfully")
+
+                    let result = res;
                     let arr = []
                     arr.push(result.data)
-                    let result = res;
                     console.log(result)
                     console.log(result.data.name)
+                    nav('/userLayout',{state:{mail: email}})
                 }
                     // navto(res.data,res.accessToken)}
                 // else if(res.code===0){

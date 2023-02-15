@@ -22,8 +22,8 @@ function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
             {'Copyright © '}
-            <Link color="inherit" href="https://afterglow.canadacentral.cloudapp.azure.com">
-                afterglow.canadacentral.cloudapp.azure.com
+            <Link color="inherit" href="/">
+                UWGodutch
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
