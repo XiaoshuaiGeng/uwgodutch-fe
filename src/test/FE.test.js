@@ -39,7 +39,6 @@ describe("Home Page Testing ", () => {
         } finally{
           await driver.quit();
         }
-
       });
     });
   });
