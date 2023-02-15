@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^13.5.0",
     "chromedriver": "^110.0.0",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "js-md5": "^0.7.3",
     "mocha": "^10.2.0",
     "react": "^18.2.0",
