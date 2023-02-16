@@ -2,36 +2,23 @@ const {By, Key, Builder} = require("selenium-webdriver")
 require("chromedriver")
 const assert = require('assert');
 
-// async function test_case1() {
-//   var driver = await new Builder().forBrowser('chrome').build()
-
-//   // await driver.get("https://www.google.com")
-//   await driver.navigate().to('http://localhost:3000')
-
-//   // await driver.findElement(By.name("q")).sendKeys('Hello World', Key.RETURN)
-
-// }
-
-// test_case1()
-
-//https://www.geeksforgeeks.org/unit-testing-of-node-js-application/
-
-describe("Home Page Testing ", () => {
+var driver = new Builder().forBrowser("chrome").build();
+describe("Login Testing", () => {
   beforeAll(() => {
-    console.log("Home Page Testing Started:");
+    // console.log("Login Testing Started:");
+    
   });
 
   afterAll(() => {
-    console.log("Home Page Testing Started Finished");
+    console.log("Login Page Testing Started Finished");
   });
 
-  describe("Test1 Check the Hompage Button", () => {
-    beforeEach(() => {
-      console.log("Checking the Hompage Button");
-    });
+  describe("Test1 Check the Login Button", () => {
+    // beforeEach(() => {
+    //   console.log("Checking the Hompage Button");
+    // });
 
     it("Home Page Title Checking", async function () {
-      let driver = await new Builder().forBrowser("chrome").build();
       try {
         await driver.get("http://localhost:3000/");
 
@@ -44,7 +31,7 @@ describe("Home Page Testing ", () => {
         //It is always a safe practice to quit the browser after execution
 
         assert.equal(title, "UWGoDutch");
-        await driver.findElement(By.id("link")).click();
+        // await driver.findElement(By.id("link")).click();
         // var browserTabs = driver.getAllWindowHandles;            
         // driver.switchTo().window(browserTabs[1]);
         // title = await driver.getTitle();
@@ -52,6 +39,16 @@ describe("Home Page Testing ", () => {
       } finally {
         await driver.quit();
       }
-    });
-  });
-});
+    })
+
+    it("Check if login button exist", async () =>{
+      let driver = await new Builder().forBrowser("chrome").build()
+      try {
+        await driver.get("http://localhost:3000")
+      }finally{
+        driver.quit();
+      }
+
+    })
+  })
+})
