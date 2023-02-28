@@ -70,7 +70,7 @@ export default function LoginLayout() {
         const encrypted_password = md5(password);
         const user={email,encrypted_password}
 
-        fetch("/login",{
+        fetch(`${process.env.REACT_APP_HOSTNAME}/login`,{
             method:"POST",
             headers:{"Content-Type":"application/json"},
             mode: 'cors',
@@ -166,6 +166,7 @@ export default function LoginLayout() {
                                 label="Remember me"
                             />
                             <Button
+                                name="login"
                                 type="submit"
                                 fullWidth
                                 variant="contained"

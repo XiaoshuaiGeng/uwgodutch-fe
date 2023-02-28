@@ -74,7 +74,7 @@ export default function SignupLayout() {
 
     const checkEmail = (e) => {
 
-        fetch("http://72.140.181.114:4000/checkmail",{
+        fetch(`${process.env.REACT_APP_HOSTNAME}/checkmail`,{
 
             method:"POST",
             mode: 'cors',
@@ -153,7 +153,7 @@ export default function SignupLayout() {
             const user={name,cell,email,encrypted_password}
 
             console.log(user)
-            fetch("http://72.140.181.114:4000/register",{
+            fetch(`${process.env.REACT_APP_HOSTNAME}/register`,{
                 method:"POST",
                 mode: 'cors',
                 headers:{"Content-Type":"application/json"},
