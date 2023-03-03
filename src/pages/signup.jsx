@@ -310,7 +310,7 @@ export default function SignupLayout() {
                                     </Link>
                                 </Grid>
                                 <Grid item >
-                                    <Link href="/login" variant="body2">
+                                    <Link href="/" variant="body2">
                                         Already Have an Account?
                                     </Link>
                                 </Grid>
