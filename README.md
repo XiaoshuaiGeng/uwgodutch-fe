@@ -4,6 +4,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
+To run frontend unit test, please first install mocha by the following command:
+### `npm install -g mocha`
+then please use the following command to run the unit tests:
+### `mocha -t 10000`
+
 In the project directory, you can run:
 
 ### `npm start`

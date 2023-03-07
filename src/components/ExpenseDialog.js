@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import TextField from '@mui/material/TextField';
@@ -17,7 +18,6 @@ import Menu from '@mui/material/Menu';
 import Button from '@mui/material/Button';
 import {useState, useEffect, useContext} from "react";
 import {UserContext} from '../pages/Mainlayer'
-
 
 let group_names = [];
 let group_gids = {};
@@ -79,7 +79,7 @@ function ExpenseDialog(props) {
         let year = newDate.getFullYear();
         let expensedate =`${year}${separator}${month<10?`0${month}`:`${month}`}${separator}${date}`
         let expense = {expensename,expensedate,group,amount}
-        fetch("http://72.140.181.114:4000/addExpense",{
+        fetch(`${process.env.REACT_APP_HOSTNAME}/addExpense`,{
             method:"POST",
             headers:{"Content-Type":"application/json"},
             mode: 'cors',
@@ -106,7 +106,7 @@ function ExpenseDialog(props) {
     useEffect( ()=>{
 
 
-        fetch("http://72.140.181.114:4000/getGroupId",{
+        fetch(`${process.env.REACT_APP_HOSTNAME}/getGroupId`,{
         
         method:"POST",
         headers:{"Content-Type":"application/json"},

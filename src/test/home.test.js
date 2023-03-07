@@ -1,6 +1,5 @@
 const {By, Key, Builder, until, wait} = require("selenium-webdriver")
 require("chromedriver")
-require('dotenv').config()
 const assert = require('assert');
 
 const TEST_HOST="http://localhost:3000"
@@ -50,8 +49,30 @@ describe("Login Testing", () => {
         await driver.findElement(By.name('login')).click()
         await driver.wait(until.alertIsPresent());
 
-        const result = await driver.switchTo().alert().getText()
-        assert.equal(result, "Invalid credentials")
+        const alertObject = await driver.switchTo().alert()
+        assert.equal( (await alertObject.getText()).toString(), "Invalid credentials")
+        await alertObject.dismiss()
+      } finally{
+        await driver.quit()
+      }
+    })
+    it("email with correct password", async ()=>{
+      let driver = await new Builder().forBrowser("chrome").build()
+      try {
+        await driver.get(TEST_HOST)
+        var email_input = await driver.findElement(By.name("email"))
+        email_input.sendKeys("xiaoshuaigeng@gmail.com")
+        
+        // driver.sleep(5000)
+        var passwd_input = await driver.findElement(By.name("password"))
+        passwd_input.sendKeys("123456")
+
+        await driver.findElement(By.name('login')).click()
+        await driver.wait(until.alertIsPresent());
+
+        const alertObject = await driver.switchTo().alert()
+        assert.equal(alertObject.getText(), "login successfully")
+        await alertObject.dismiss()
       } finally{
         await driver.quit()
       }

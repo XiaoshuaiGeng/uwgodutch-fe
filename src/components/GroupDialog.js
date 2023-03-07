@@ -92,7 +92,7 @@ function GroupDialog(props) {
       let year = newDate.getFullYear();
       let groupdate =`${year}${separator}${month<10?`0${month}`:`${month}`}${separator}${date}`
       let group = {useremail,groupname,groupdate,Inputs}
-      fetch("http://72.140.181.114:4000/addGroup",{
+      fetch(`${process.env.REACT_APP_HOSTNAME}/addGroup`,{
           method:"POST",
           headers:{"Content-Type":"application/json"},
           mode: 'cors',
