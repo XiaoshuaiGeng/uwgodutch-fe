@@ -61,7 +61,7 @@ function Body() {
 
     const handleGroupClickOpen = (name,id) => {
 
-          const url=`http://72.140.181.114:4000/getGroupbyid?id=${id}`;
+          const url=`${process.env.REACT_APP_HOSTNAME}/getGroupbyid?id=${id}`;
           fetch(url).then(res=>res.json())
               .then((res)=>{
                   if (res.code===1) {
@@ -85,7 +85,7 @@ function Body() {
     useEffect( ()=>{
 
 
-        fetch("http://72.140.181.114:4000/getGroupId",{
+        fetch(`${process.env.REACT_APP_HOSTNAME}/getGroupId`,{
 
             method:"POST",
             headers:{"Content-Type":"application/json"},

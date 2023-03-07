@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import TextField from '@mui/material/TextField';
@@ -16,20 +14,22 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Menu from '@mui/material/Menu';
 import Button from '@mui/material/Button';
-import {useState, useEffect, useContext} from "react";
+import { OutlinedInput,Checkbox, ListItemText } from '@mui/material';
+import React, {useState, useEffect, useContext, useRef} from "react";
 import {UserContext} from '../pages/Mainlayer'
+import axios from 'axios';
 
 let group_names = [];
 let group_gids = {};
 
-
 function SelectType({typename,types,feedGroup}) {
 
-    const [type, setType] = React.useState('');
+    const [type, setType] = useState('');
 
     const handleChange = (event) => {
         setType(event.target.value);
         feedGroup(group_gids[event.target.value])
+        
     };
 
     return (
@@ -54,12 +54,68 @@ function SelectType({typename,types,feedGroup}) {
     );
 }
 
+//Select Payer(One or Multiple) from group member list
+// Param: 
+function SelectPayer({groupMembers, payerName, setPayerName}){
+    const ITEM_HEIGHT = 48;
+    const ITEM_PADDING_TOP = 8;
+    const MenuProps = {
+        PaperProps: {
+            style: {
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: 250,
+            },
+        },
+    };
+
+    const handleChange = (event) => {
+        const {
+        target: { value },
+        } = event;
+        setPayerName(
+        // On autofill we get a stringified value.
+        typeof value === 'string' ? value.split(',') : value,
+        );
+        
+    };
+    return (
+        <div>
+            <FormControl sx={{ m: 1, width: 300 }}>
+                <InputLabel id="demo-multiple-checkbox-label">Payers</InputLabel>
+                <Select
+                labelId="demo-multiple-checkbox-label"
+                id="demo-multiple-checkbox"
+                multiple
+                value={payerName}
+                onChange={handleChange}
+                input={<OutlinedInput label="Payers" />}
+                renderValue={(selected) => selected.join(', ')}
+                MenuProps={MenuProps}
+                >
+                {groupMembers.map((name) => (
+                    <MenuItem key={name} value={name}>
+                    <Checkbox checked={payerName.indexOf(name) > -1} />
+                    <ListItemText primary={name} />
+                    </MenuItem>
+                ))}
+                </Select>
+            </FormControl>
+        </div>
+    )
+}
+
 function ExpenseDialog(props) {
     const { onClose, selectedValue, open } = props;
     const [expensename,setExpensename]=useState("")
     const [expensedate,setExpensedate]=useState("")
+    
     const [group,setGroup] = useState('')
     const [amount,setAmount]= useState('')
+    const [groupMembers, setGroupMembers] = useState([])
+    const [borrowers, setBorrowers] = useState([])
+
+
+    const [payerName, setPayerName] = useState([]);
     const email = useContext(UserContext);
 
     const handleClose = () => {
@@ -104,8 +160,6 @@ function ExpenseDialog(props) {
     }
 
     useEffect( ()=>{
-
-
         fetch(`${process.env.REACT_APP_HOSTNAME}/getGroupId`,{
         
         method:"POST",
@@ -117,10 +171,13 @@ function ExpenseDialog(props) {
         .then((res)=>{
             if (res.code===1) {
                 for (let i = 0; i < res.GidList.length; i++) {
+                    
                     let group_info = res.GidList[i];
                     group_names.push(group_info.gname);
                     group_gids[group_info.gname] = group_info.gid;
                 }
+                // console.log(group_names)
+                // console.log(group_gids)
 
             }
                 // navto(res.data,res.accessToken)}
@@ -135,9 +192,27 @@ function ExpenseDialog(props) {
                 console.error(error);
             })},[email])
 
+        useEffect(()=> {
+            
+            const getGroupMembers = async () => {
+                // console.log(group)
+                const response = await axios.get(`${process.env.REACT_APP_HOSTNAME}/getGroupbyid`,
+                {
+                    params: {
+                        id: group
+                    }
+                })
+                // console.log(response)
+                setGroupMembers(response.data.MemberList)
+            }
+            if(group !== ''){
+                setPayerName([])
+                getGroupMembers().catch(console.error)
 
+            }
+        }, [group])
     return (
-      <Dialog onClose={handleClose} open={open}>
+      <Dialog onClose={handleClose} open={open} fullWidth={true} maxWidth='md' >
         <DialogTitle>Add Expense</DialogTitle>
           <List sx={{ pt: 0 }}>
               <ListItem>
@@ -157,6 +232,9 @@ function ExpenseDialog(props) {
                 autoComplete="current-password"
                 value={amount} onChange = {(e)=>setAmount(e.target.value)}
               />
+            </ListItem>
+            <ListItem >
+              <SelectPayer groupMembers={groupMembers} payerName={payerName} setPayerName={setPayerName} />
             </ListItem>
             <ListItem >
               <Button variant="contained" onClick={() => handleSubmit()} sx = {{mr:10, ml:10}}>Submit</Button>
