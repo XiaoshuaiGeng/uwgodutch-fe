@@ -121,9 +121,7 @@ function ExpenseDialog(props) {
                     group_names.push(group_info.gname);
                     group_gids[group_info.gname] = group_info.gid;
                 }
-                console.log(group_gids)
-                console.log(group_names)
-            console.log('succ')
+
             }
                 // navto(res.data,res.accessToken)}
                 // else if(res.code===0){
@@ -133,7 +131,9 @@ function ExpenseDialog(props) {
             else if (res.code===0){
                 console.log('fail')
             }
-        })},[email])
+        }).catch((error) => {
+                console.error(error);
+            })},[email])
 
 
     return (
