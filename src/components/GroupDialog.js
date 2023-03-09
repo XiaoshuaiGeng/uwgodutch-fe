@@ -72,7 +72,9 @@ export function Groups({number,OnInputsChange}){
 
 function GroupDialog(props) {
   const { onClose, selectedValue, open } = props;
-  const useremail = useContext(UserContext);
+  const userinfo = useContext(UserContext);
+  const useremail = userinfo[0];
+  const username = userinfo[1];
   let count = 0;
   const [groupname,setGroupname] = useState('')
 
@@ -91,6 +93,10 @@ function GroupDialog(props) {
       let month = newDate.getMonth() + 1;
       let year = newDate.getFullYear();
       let groupdate =`${year}${separator}${month<10?`0${month}`:`${month}`}${separator}${date}`
+      let memberList =Inputs.push({
+        "name": username,
+        "email": useremail
+      });
       let group = {useremail,groupname,groupdate,Inputs}
       fetch(`${process.env.REACT_APP_HOSTNAME}/addGroup`,{
           method:"POST",

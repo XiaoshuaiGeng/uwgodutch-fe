@@ -86,7 +86,7 @@ export default function LoginLayout() {
                     arr.push(result.data)
                     console.log(result)
                     console.log(result.data.name)
-                    nav('/userLayout',{state:{mail: email}})
+                    nav('/userLayout',{state:{mail: email, name: result.data.name}})
                 }
                     // navto(res.data,res.accessToken)}
                 // else if(res.code===0){

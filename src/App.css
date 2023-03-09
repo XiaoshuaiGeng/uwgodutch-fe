@@ -13,6 +13,50 @@
   }
 }
 
+
+.vl {
+  border-left: 2px solid #999;
+  height: 1000px;
+}
+.MuiMenuItem-root{
+  color: inherit;
+  display: block;
+  height: 19px;
+  font-size: 14px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 3px 8px 2px 8px;
+  text-decoration: none;
+  border-left: 6px solid #fff;
+}
+.total_balances {
+  font-size: 0px;
+  margin: -10px -15px 0;
+  padding: 7px 0 2px;
+  background: #ddd;
+  border-bottom: 1px solid #ddd;
+  color: #999;
+  text-align: center;
+  border-radius: 10px;
+}
+.total_balances .block {
+  display: inline-block;
+  width: 175px;
+  text-align: center;
+  padding: 0 5px;
+  border-left: 1px solid #ffffff;
+  line-height: 16px;
+  font-size: 13px;
+}
+
+.total_balances .positive {
+  color: #5bc5a7;
+}
+
+.total_balances .negative {
+  color: #ff652f;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

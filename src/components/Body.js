@@ -14,6 +14,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import {UserContext} from '../pages/Mainlayer'
 import {useContext,useEffect,useState} from "react";
+import '../App.css';
 
 
 
@@ -47,8 +48,8 @@ function Body() {
     const [GidList, setGidList] = useState([]);
     const [memberList, setmemberList] = useState([]);
 
-    let email = useContext(UserContext)
-
+    let userinfo = useContext(UserContext)
+    let email = userinfo[0]
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
         ...theme.typography.body2,
@@ -86,7 +87,6 @@ function Body() {
 
 
         fetch(`${process.env.REACT_APP_HOSTNAME}/getGroupId`,{
-
             method:"POST",
             headers:{"Content-Type":"application/json"},
             mode: 'cors',
@@ -103,10 +103,32 @@ function Body() {
                 }
             }).catch((error) => {
             console.error(error);
-        })},[email])
+        })
+    
+        fetch(`${process.env.REACT_APP_HOSTNAME}/getGroupId`,{
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            mode: 'cors',
+            body:JSON.stringify({email})
+
+        }).then(res=>res.json())
+            .then((res)=>{
+                if (res.code===1) {
+                    setGidList(res.GidList)
+                }
+
+                else if (res.code===0){
+                    console.log('fail')
+                }
+            }).catch((error) => {
+            console.error(error);
+        })
+    
+    
+    },[email])
     return   (
             <Grid container spacing={3} justifyContent="center" sx={{width: '100%'}}>
-                <Grid item xs={3} >
+                <Grid item xs={2} >
                     <h1
                         style={{
                             color: "",
@@ -132,6 +154,9 @@ function Body() {
                     />
 
                 </Grid>
+                <Grid>
+                <div class="vl"></div>
+                </Grid>
 
                 <Grid item xs={8}>
                     <h1
@@ -141,8 +166,22 @@ function Body() {
                     >
                         DashBoard
                     </h1>
+                    <div class="total_balances">
+                        <div class="block">
+                            <div class="title">total balance</div>
+                            <span class="positive">+$150</span>
+                        </div>
+                        <div class="block">
+                            <div class="title">you owe</div>
+                            <span class="negative">+$100</span>
+                        </div>
+                        <div class="block">
+                            <div class="title">you are owed</div>
+                            <span class="positive">+$250</span>
+                        </div>
+                    </div>
 
-                    <Grid container spacing={3} justifyContent="center">
+                    {/* <Grid container spacing={3} justifyContent="center">
                         <Grid item xs={3}>
                             Balance:150
                         </Grid>
@@ -152,7 +191,7 @@ function Body() {
                         <Grid item xs={3}>
                             Owed:250
                         </Grid>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
 
             </Grid>

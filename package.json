@@ -22,6 +22,7 @@
     "selenium-webdriver": "^4.8.0",
     "web-vitals": "^2.1.4"
   },
+  "proxy": "http://72.140.181.114:4000/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

@@ -116,8 +116,8 @@ function ExpenseDialog(props) {
 
 
     const [payerName, setPayerName] = useState([]);
-    const email = useContext(UserContext);
-
+    const userinfo = useContext(UserContext);
+    const email =userinfo[0];
     const handleClose = () => {
         onClose(selectedValue);
     };
@@ -161,7 +161,6 @@ function ExpenseDialog(props) {
 
     useEffect( ()=>{
         fetch(`${process.env.REACT_APP_HOSTNAME}/getGroupId`,{
-        
         method:"POST",
         headers:{"Content-Type":"application/json"},
         mode: 'cors',

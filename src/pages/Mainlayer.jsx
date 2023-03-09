@@ -21,10 +21,11 @@ export default function MainLayer() {
             nav('/')
         }
         else{setumail(location.state.mail);
-        }},[])
+        }
+    },[])
 
     return   (
-        <UserContext.Provider value={usermail}>
+        <UserContext.Provider value={[location.state.mail,location.state.name]}>
         <Container maxWidth="false">
 
             <Header/>

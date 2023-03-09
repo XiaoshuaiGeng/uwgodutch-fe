@@ -70,9 +70,9 @@ describe("Login Testing", () => {
         await driver.findElement(By.name('login')).click()
         await driver.wait(until.alertIsPresent());
 
-        const alertObject = await driver.switchTo().alert()
-        assert.equal(alertObject.getText(), "login successfully")
-        await alertObject.dismiss()
+        const results = await driver.switchTo().alert().getText()
+        assert.equal(results, "login successfully")
+        // await alertObject.dismiss()
       } finally{
         await driver.quit()
       }
