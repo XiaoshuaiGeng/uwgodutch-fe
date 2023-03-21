@@ -52,9 +52,9 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function LoginLayout() {
-    const responseGoogle = (response) => {
-        console.log(response);
-    }
+    // const responseGoogle = (response) => {
+    //     // console.log(response);
+    // }
     const[cell,setCell]=useState('')
     const[email,setEmail]=useState('')
     const[password,setPassword]=useState('')
