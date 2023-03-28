@@ -84,15 +84,10 @@ export default function LoginLayout() {
                     let result = res;
                     let arr = []
                     arr.push(result.data)
-                    console.log(result)
-                    console.log(result.data.name)
+                    // console.log(result)
+                    // console.log(result.data.name)
                     nav('/userLayout',{state:{mail: email, name: result.data.name}})
                 }
-                    // navto(res.data,res.accessToken)}
-                // else if(res.code===0){
-                //
-                //     alert("User not found with the given email/phone")
-                // }
                 else if (res.code===0){
                     alert("Invalid credentials")
                 }
@@ -100,7 +95,7 @@ export default function LoginLayout() {
 
     }
 
-
+    // write code to 
     return (
         <ThemeProvider theme={theme}>
             <Grid container component="main" sx={{ height: '100vh' }}>
@@ -135,12 +130,13 @@ export default function LoginLayout() {
                         <Typography component="h1" variant="h5">
                             logIn
                         </Typography>
-                        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                        <Box data-testid="login-form" component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
 
                             <TextField
                                 margin="normal"
                                 required
                                 fullWidth
+                                data-testid="email"
                                 id="email"
                                 label="Email Address"
                                 name="email"
@@ -153,6 +149,7 @@ export default function LoginLayout() {
                                 margin="normal"
                                 required
                                 fullWidth
+                                data-testid="password"
                                 name="password"
                                 label="Password"
                                 type="password"
@@ -168,6 +165,7 @@ export default function LoginLayout() {
                             <Button
                                 name="login"
                                 type="submit"
+                                data-testid="login-btn"
                                 fullWidth
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
